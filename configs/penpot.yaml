@@ -1,0 +1,27 @@
+name: penpot
+namespace: penpot
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: kargo-penpot-prod.01kq7cfz2qa8259gp61qebjknk.944907d
+
+chart:
+  repoURL: http://helm.penpot.app
+  name: penpot
+  version: 0.40.0
+
+valuesFile: valuesfiles/penpot.yaml
+manifestsPath: manifests/penpot
+
+kargo:
+  enabled: true
+  project: kargo-penpot
+  autoPromotionEnabled: true
+  warehouse:
+    interval: 1h0m0s
+    images: []
+    chart:
+      repoURL: http://helm.penpot.app
+      name: penpot
+      semverConstraint: ">=0.38.0"
+  stage:
+    imageUpdates: []

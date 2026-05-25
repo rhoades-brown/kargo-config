@@ -1,0 +1,34 @@
+name: jellyfin
+namespace: jellyfin
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: kargo-jellyfin-prod.01knq68c7aag1v4p3dsehyrvt4.fde3f36
+
+chart:
+  repoURL: https://jellyfin.github.io/jellyfin-helm
+  name: jellyfin
+  version: 3.2.0
+
+valuesFile: valuesfiles/jellyfin.yaml
+manifestsPath: manifests/jellyfin
+
+kargo:
+  enabled: true
+  project: kargo-jellyfin
+  autoPromotionEnabled: true
+  warehouse:
+    interval: 1h0m0s
+    images:
+      - repoURL: docker.io/jellyfin/jellyfin
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    chart:
+      repoURL: https://jellyfin.github.io/jellyfin-helm
+      name: jellyfin
+      semverConstraint: ">=2.0.0"
+  stage:
+    imageUpdates:
+      - key: image.tag
+        image: docker.io/jellyfin/jellyfin
+        file: valuesfiles/jellyfin.yaml
+

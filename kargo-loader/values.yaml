@@ -1,0 +1,49 @@
+# -- Application identity
+name: ""
+namespace: ""
+
+# -- Git repository containing the app values/manifests (argo-config)
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+# -- Git repository containing the Kargo configs (kargo-config)
+kargoRepo: https://github.com/rhoades-brown/kargo-config.git
+
+# -- Upstream Helm chart source (used by kargo-stage for chart version tracking)
+chart:
+  repoURL: ""
+  name: ""
+  version: ""
+
+# -- Path to the values file in gitRepo (argo-config)
+valuesFile: ""
+
+# -- Optional path to raw manifests directory in gitRepo (argo-config)
+manifestsPath: ""
+
+# -- Optional external git source
+gitSource:
+  repoURL: ""
+  path: ""
+  targetRevision: ""
+
+# -- Optional path to local helm chart in gitRepo
+helmPath: ""
+
+# -- Kargo delivery pipeline
+kargo:
+  enabled: false
+  project: ""
+  autoPromotionEnabled: true
+  warehouse:
+    interval: "10m0s"
+    images: []
+    chart:
+      repoURL: ""
+      name: ""
+      semverConstraint: ""
+    gitSource:
+      repoURL: ""
+      semverConstraint: ""
+  stage:
+    imageUpdates: []

@@ -1,0 +1,126 @@
+{{- if .Values.kargo.enabled }}
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod
+  namespace: {{ include "kargo-loader.kargoProject" . }}
+spec:
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: {{ .Values.name }}
+      sources:
+        direct: true
+  promotionTemplate:
+    spec:
+      vars:
+        - name: kargoRepo
+          value: {{ .Values.kargoRepo }}
+        - name: gitRepo
+          value: {{ .Values.gitRepo }}
+        - name: tagName
+          value: ${{ "{{" }} ctx.project + "-" + ctx.promotion {{ "}}" }}
+      steps:
+        - uses: git-clone
+          as: clone-kargo
+          config:
+            repoURL: ${{ "{{" }} vars.kargoRepo {{ "}}" }}
+            checkout:
+              - branch: main
+                path: ./kargo
+        {{- if .Values.kargo.stage.imageUpdates }}
+        - uses: git-clone
+          as: clone-argo
+          config:
+            repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
+            checkout:
+              - branch: main
+                path: ./argo
+        {{- end }}
+        {{- range $i, $update := .Values.kargo.stage.imageUpdates }}
+        - uses: yaml-update
+          as: update-image-{{ $i }}
+          config:
+            path: ./argo/{{ $update.file }}
+            updates:
+              - key: {{ $update.key }}
+                {{- if $update.useFullImage }}
+                value: ${{ "{{" }} imageFrom({{ $update.image | quote }}).Name + ":" + imageFrom({{ $update.image | quote }}).Tag {{ "}}" }}
+                {{- else }}
+                value: ${{ "{{" }} imageFrom({{ $update.image | quote }}).Tag {{ "}}" }}
+                {{- end }}
+        {{- end }}
+        {{- if .Values.kargo.stage.imageUpdates }}
+        - uses: git-commit
+          as: commit-argo
+          config:
+            path: ./argo
+            message: |
+              {{- range $i, $update := .Values.kargo.stage.imageUpdates }}
+              ${{ "{{" }} outputs['update-image-{{ $i }}'].commitMessage {{ "}}" }}
+              {{- end }}
+        - uses: git-push
+          config:
+            path: ./argo
+        {{- end }}
+        {{- if .Values.kargo.warehouse.chart.repoURL }}
+        - uses: yaml-update
+          as: update-chart
+          config:
+            path: ./kargo/configs/{{ .Values.name }}.yaml
+            updates:
+              - key: chart.version
+                {{- if .Values.kargo.warehouse.chart.name }}
+                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | quote }}).Version {{ "}}" }}
+                {{- else }}
+                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}).Version {{ "}}" }}
+                {{- end }}
+        {{- end }}
+        {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+        - uses: yaml-update
+          as: update-git-source
+          config:
+            path: ./kargo/configs/{{ .Values.name }}.yaml
+            updates:
+              - key: gitSource.targetRevision
+                value: ${{ "{{" }} commitFrom({{ .Values.kargo.warehouse.gitSource.repoURL | quote }}).Tag {{ "}}" }}
+        {{- end }}
+        - uses: yaml-update
+          as: update-target-revision
+          config:
+            path: ./kargo/configs/{{ .Values.name }}.yaml
+            updates:
+              - key: targetRevision
+                value: ${{ "{{" }} vars.tagName {{ "}}" }}
+        - uses: git-commit
+          as: commit-kargo
+          config:
+            path: ./kargo
+            message: |
+              {{- if .Values.kargo.warehouse.chart.repoURL }}
+              ${{ "{{" }} outputs['update-chart'].commitMessage {{ "}}" }}
+              {{- end }}
+              {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+              ${{ "{{" }} outputs['update-git-source'].commitMessage {{ "}}" }}
+              {{- end }}
+              ${{ "{{" }} outputs['update-target-revision'].commitMessage {{ "}}" }}
+        - uses: git-push
+          config:
+            path: ./kargo
+        - uses: http
+          as: create-tag
+          config:
+            method: POST
+            url: https://api.github.com/repos/rhoades-brown/kargo-config/git/refs
+            headers:
+              - name: Accept
+                value: application/vnd.github+json
+              - name: Authorization
+                value: Bearer ${{ "{{" }} sharedSecret("kargo-github-api-token").token {{ "}}" }}
+            body: |
+              ${{ "{{" }} quote({
+                "ref": "refs/tags/" + vars.tagName,
+                "sha": outputs['commit-kargo'].commit
+              }) {{ "}}" }}
+            successExpression: response.status == 201
+{{- end }}

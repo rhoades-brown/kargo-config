@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kargo-apps
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - "missingkey=error"
+  generators:
+    - git:
+        repoURL: https://github.com/rhoades-brown/kargo-config.git
+        revision: {{ .Values.targetRevision }}
+        files:
+          - path: "configs/*.yaml"
+  template:
+    metadata:
+      name: '{{ "{{.name}}" }}-kargo'
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      sources:
+        - repoURL: https://github.com/rhoades-brown/kargo-config.git
+          targetRevision: {{ .Values.targetRevision }}
+          path: kargo-loader
+          helm:
+            valueFiles:
+              - $values/configs/{{ "{{.name}}" }}.yaml
+        - repoURL: https://github.com/rhoades-brown/kargo-config.git
+          targetRevision: {{ .Values.targetRevision }}
+          ref: values
+      ignoreDifferences:
+        - group: kargo.akuity.io
+          kind: Stage
+          jsonPointers:
+            - /status
+        - group: kargo.akuity.io
+          kind: Warehouse
+          jsonPointers:
+            - /status
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
