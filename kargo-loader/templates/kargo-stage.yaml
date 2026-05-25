@@ -4,6 +4,8 @@ kind: Stage
 metadata:
   name: prod
   namespace: {{ include "kargo-loader.kargoProject" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   requestedFreight:
     - origin:

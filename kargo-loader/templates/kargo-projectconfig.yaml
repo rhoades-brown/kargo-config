@@ -4,6 +4,8 @@ kind: ProjectConfig
 metadata:
   name: {{ include "kargo-loader.kargoProject" . }}
   namespace: {{ include "kargo-loader.kargoProject" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   promotionPolicies:
     - stageSelector:

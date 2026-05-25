@@ -3,4 +3,6 @@ apiVersion: kargo.akuity.io/v1alpha1
 kind: Project
 metadata:
   name: {{ include "kargo-loader.kargoProject" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 {{- end }}

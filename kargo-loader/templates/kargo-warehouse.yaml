@@ -4,6 +4,8 @@ kind: Warehouse
 metadata:
   name: {{ .Values.name }}
   namespace: {{ include "kargo-loader.kargoProject" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   interval: {{ .Values.kargo.warehouse.interval }}
   subscriptions:
