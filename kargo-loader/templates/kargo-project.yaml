@@ -5,5 +5,5 @@ metadata:
   name: {{ include "kargo-loader.kargoProject" . }}
   annotations:
     argocd.argoproj.io/sync-wave: "0"
-    link.argocd.argoproj.io/external-link: "https://argo-cd.rhoades-brown.local/applications/{{ include "kargo-loader.kargoProject" . }}"
+    link.argocd.argoproj.io/external-link: "https://kargo.tailc14988.ts.net/project//{{ include "kargo-loader.kargoProject" . }}"
 {{- end }}
