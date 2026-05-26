@@ -1,0 +1,28 @@
+name: argocd
+namespace: argocd
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://argoproj.github.io/argo-helm
+  name: argo-cd
+  version: 9.5.15
+
+valuesFile: valuesfiles/argocd.yaml
+manifestsPath: manifests/argocd
+
+noFinalizer: true
+
+kargo:
+  enabled: true
+  project: kargo-argocd
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://argoproj.github.io/argo-helm
+      name: argo-cd
+      semverConstraint: ">=9.5.15"
+  stage:
+    imageUpdates: []
