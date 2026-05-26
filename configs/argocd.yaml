@@ -2,7 +2,7 @@ name: argocd
 namespace: argocd
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: main
+targetRevision: kargo-argocd-prod.01ksk3z30rzz3xpwxwhrpjw31q.48a1ad1
 
 chart:
   repoURL: https://argoproj.github.io/argo-helm
