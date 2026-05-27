@@ -2,7 +2,7 @@ name: openspeedtest
 namespace: openspeedtest
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-openspeedtest-prod.01kn7z7n6mwe66v5t7cmj378ys.c2533b1
+targetRevision: kargo-openspeedtest-prod.01ksnbw238je2rjmhwmama9nye.c2533b1
 
 chart:
   repoURL: https://openspeedtest.github.io/Helm-chart
