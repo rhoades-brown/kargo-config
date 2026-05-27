@@ -2,7 +2,7 @@ name: whoami
 namespace: whoami
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-whoami-prod.01kn7zktb62hjgbzz4nqxcn0ew.741970e
+targetRevision: kargo-whoami-prod.01ksnbx08vfvmabrs8qdzb0hw4.999af6c
 
 helmPath: helm/whoami
 
