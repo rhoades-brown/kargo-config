@@ -2,12 +2,12 @@ name: argocd
 namespace: argocd
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-argocd-prod.01ksk3z30rzz3xpwxwhrpjw31q.48a1ad1
+targetRevision: kargo-argocd-prod.01ksqme2r4rfavtt5j3999kehc.2775701
 
 chart:
   repoURL: https://argoproj.github.io/argo-helm
   name: argo-cd
-  version: 9.5.15
+  version: 9.5.16
 
 valuesFile: valuesfiles/argocd.yaml
 manifestsPath: manifests/argocd
