@@ -2,7 +2,7 @@ name: open-notebook
 namespace: open-notebook
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-open-notebook-prod.01ksxep38kr6nrhbpv3k9pkcb6.3351749
+targetRevision: kargo-open-notebook-prod.01ksxg8zmbg6y8bp1rksa46wfa.3351749
 
 helmPath: helm/open-notebook
 
