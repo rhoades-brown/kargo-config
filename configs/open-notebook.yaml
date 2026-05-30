@@ -1,0 +1,32 @@
+name: open-notebook
+namespace: open-notebook
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+helmPath: helm/open-notebook
+
+kargo:
+  enabled: true
+  project: kargo-open-notebook
+  autoPromotionEnabled: true
+  warehouse:
+    interval: 1h0m0s
+    images:
+      - repoURL: docker.io/lfnovo/open_notebook
+        imageSelectionStrategy: Digest
+        constraint: v1-latest
+      - repoURL: docker.io/surrealdb/surrealdb
+        imageSelectionStrategy: Digest
+        constraint: v2
+    chart:
+      repoURL: ""
+      semverConstraint: ""
+  stage:
+    imageUpdates:
+      - key: openNotebook.image.tag
+        image: docker.io/lfnovo/open_notebook
+        file: helm/open-notebook/values.yaml
+      - key: surrealdb.image.tag
+        image: docker.io/surrealdb/surrealdb
+        file: helm/open-notebook/values.yaml
