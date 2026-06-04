@@ -2,7 +2,7 @@ name: open-webui
 namespace: open-webui
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-open-webui-prod.01kt84hbapx6cxj3k88rcdgmvh.e233c77
+targetRevision: kargo-open-webui-prod.01kta6p6j2hhm4hk199b82sqm6.e820ff1
 
 chart:
   repoURL: https://helm.openwebui.com/
