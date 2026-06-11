@@ -2,12 +2,12 @@ name: metrics-server
 namespace: kube-system
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-metrics-server-prod.01ksgp522v281h31417k2hwwqf.242ffdc
+targetRevision: kargo-metrics-server-prod.01ktv3fza1gh9mpzmwrbptgpt2.db959fd
 
 chart:
   repoURL: https://kubernetes-sigs.github.io/metrics-server/
   name: metrics-server
-  version: 3.13.0
+  version: 3.13.1
 
 kargo:
   enabled: true
