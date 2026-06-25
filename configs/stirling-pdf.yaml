@@ -2,7 +2,7 @@ name: stirling-pdf
 namespace: stirlingpdf
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-stirling-pdf-prod.01kvz652nn3vgnfkgrwjf12e32.0a54848
+targetRevision: kargo-stirling-pdf-prod.01kvz6rc5ymqkw5sat33nb4sp1.3851b8b
 
 chart:
   repoURL: https://stirling-tools.github.io/Stirling-PDF-chart
