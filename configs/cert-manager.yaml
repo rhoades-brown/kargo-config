@@ -2,12 +2,12 @@ name: cert-manager
 namespace: cert-manager
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-cert-manager-prod.01kx1xdhw2q2mxj0n8qv3c2b6k.593ee7d
+targetRevision: kargo-cert-manager-prod.01kyq7qxsg5c6ns2wm5nhp9r41.90640db
 
 chart:
   repoURL: https://charts.jetstack.io
   name: cert-manager
-  version: v1.21.0
+  version: v1.21.1
 
 valuesFile: valuesfiles/cert-manager.yaml
 
