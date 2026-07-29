@@ -15,10 +15,10 @@ kargo:
     images:
       - repoURL: ghcr.io/paperless-ngx/paperless-ngx
         tagSelectionStrategy: SemVer
-        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
       - repoURL: docker.io/gotenberg/gotenberg
         tagSelectionStrategy: SemVer
-        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
       - repoURL: docker.io/bitnami/redis
         imageSelectionStrategy: Digest
         constraint: latest

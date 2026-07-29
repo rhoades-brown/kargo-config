@@ -20,7 +20,7 @@ kargo:
     images:
       - repoURL: ghcr.io/immich-app/immich-server
         tagSelectionStrategy: SemVer
-        allowTags: "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegex: "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: oci://ghcr.io/immich-app/immich-charts/immich
       semverConstraint: ">=0.10.0"

@@ -23,7 +23,7 @@ kargo:
         tagSelectionStrategy: SemVer
       - repoURL: docker.io/ollama/ollama
         tagSelectionStrategy: SemVer
-        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://helm.openwebui.com/
       name: open-webui
