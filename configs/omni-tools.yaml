@@ -2,7 +2,7 @@ name: omni-tools
 namespace: omni-tools
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-omni-tools-prod.01m08dzk76s0ysvdfd6jafh631.59ce6f4
+targetRevision: kargo-omni-tools-prod.01m08mvddgff5pev54aavqbm1g.00bcd52
 
 helmPath: helm/omni-tools
 
