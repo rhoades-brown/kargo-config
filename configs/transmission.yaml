@@ -14,7 +14,8 @@ kargo:
     images:
       - repoURL: linuxserver/transmission
         tagSelectionStrategy: Lexicographic
-        allowTagsRegex: "^version-.*"
+        allowTagsRegexes:
+        - "^version-.*"
     chart:
       repoURL: ""
       semverConstraint: ""

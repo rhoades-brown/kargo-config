@@ -21,7 +21,8 @@ kargo:
     images:
       - repoURL: docker.io/jellyfin/jellyfin
         tagSelectionStrategy: SemVer
-        allowTagsRegex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegexes:
+        - "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://jellyfin.github.io/jellyfin-helm
       name: jellyfin

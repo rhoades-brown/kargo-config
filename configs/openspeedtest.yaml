@@ -20,7 +20,8 @@ kargo:
     images:
       - repoURL: docker.io/openspeedtest/latest
         tagSelectionStrategy: SemVer
-        allowTagsRegex: "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegexes:
+        - "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://openspeedtest.github.io/Helm-chart
       name: openspeedtest
