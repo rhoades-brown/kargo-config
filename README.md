@@ -104,7 +104,8 @@ kargo:
     images:
       - repoURL: ghcr.io/example/myapp
         tagSelectionStrategy: SemVer
-        allowTags: "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+        allowTagsRegexes:
+          - "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://charts.example.com
       name: myapp
