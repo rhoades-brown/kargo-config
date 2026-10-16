@@ -19,10 +19,10 @@ kargo:
   warehouse:
     interval: 1h0m0s
     images:
-      - repoURL: docker.io/jellyfin/jellyfin
+      - repoURL: ghcr.io/jellyfin/jellyfin
         tagSelectionStrategy: SemVer
-        allowTagsRegexes:
-        - "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+#        allowTagsRegexes:
+#        - "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://jellyfin.github.io/jellyfin-helm
       name: jellyfin
@@ -30,6 +30,6 @@ kargo:
   stage:
     imageUpdates:
       - key: image.tag
-        image: docker.io/jellyfin/jellyfin
+        image: ghcr.io/jellyfin/jellyfin
         file: valuesfiles/jellyfin.yaml
 
